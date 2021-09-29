@@ -1,0 +1,21 @@
+{
+    "templateRules": [
+        {
+            "ruleName": "DailyBackups",
+            "scheduleExpression": "cron(0 5 ? * * *)",
+            "startWindowMinutes": 480,
+            "completionWindowMinutes": 10080
+        },
+        {
+            "ruleName": "Monthly",
+            "scheduleExpression": "cron(0 5 1 * ? *)",
+            "startWindowMinutes": 480,
+            "completionWindowMinutes": 10080,
+            "lifecycle": {
+                "toColdStorageAfterDays": 30,
+                "toDeletedAfterDays": 365
+            }
+        }
+    ],
+    "signature": "rf6Z35zv1ufalwDeSZ47MuP7uDasA/UExdaIoatpUfcg4GeN34j/APTVToSzzxHxSbZ/nuc93NF9+ZJntEOc3lyFiSjwTnOFOEI4ZsUoK5TQBPlP9Wd5ol8jYKz0n+mCwxHNsFn8BxEKrpjDnN9bs8EqnRf4Rh45r6n4WuPy/vBp+VJs9iW9BIVH5K0aG+Y4omG1KlAKR24SP5RTQsJu/DmmQZieA4UZ5iQgoa4SKUseLNvb6X+GQXukXeVfCphURi5aQZ82/jfybPuz//OxMafAUjyC2vtrvf40BNgMtbULJTlXCctndf7rmNtP8I2Daf0jAEMe6UWUblEftxbJd7GYB/loNvnF+On1o+vNpsF0SGxVD2Dm1PVN6yS4MQZtIkNQBfHLAlPBSiMwPWFlCUovzsC2+APyBLwCNRpGPybiP69i9hEYGjjdHCdBjVUX"
+}

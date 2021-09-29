@@ -1,0 +1,26 @@
+- name: Create LVM VG(s)
+  lvg:
+    vg: "{{ vg_name }}"
+    pvs: "{% for disk in vg_pvs %}/dev/{{ disk }}{% if not loop.last %},{% endif %}{% endfor %}"
+    state: present
+  when:
+  - vg_name not in ansible_lvm.vgs
+  - partition_exists.split(';')
+  vars:
+    partition_exists: "{% for disk in vg_pvs %}ansible_devices[{{ disk }}]['partitions']{{ disk }} is defined{% if not loop.last %};{% endif %}{% endfor %}"
+  tags:
+  - pvs- name: Extend the logical volume to take all remaining space of the PVs and resize the underlying filesystem
+  lvol:
+    vg: "{{ vg_name }}"
+    lv: "{{ lv_name }}"
+    size: +100%FREE
+    resizefs: true
+  when:
+  - lv_name  not in ansible_lvm.lvs
+  tags:
+  - lvs- name: Create a xfs filesystem
+  filesystem:
+    fstype: xfs
+    dev: '/dev/{{vg_name}}/{{lv_name}}'
+  tags:
+  - fs
